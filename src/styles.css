@@ -1,6 +1,3 @@
-/* App-local styles. Mesh chrome (settings drawer, self-ref bar) is provided by
- * @baditaflorin/mesh-common/styles.css imported in main.tsx. */
-
 :root {
   color-scheme: dark;
 }
@@ -22,30 +19,163 @@ body,
   -webkit-tap-highlight-color: transparent;
 }
 
-.feature-placeholder {
-  padding: 6rem 1.5rem 2rem;
-  text-align: center;
+.soh-screen {
+  max-width: 36rem;
+  margin: 0 auto;
+  padding: 4.5rem 1.25rem 6rem;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 1rem;
+  gap: 1.25rem;
 }
 
-.feature-placeholder h1 {
+.soh-header h1 {
   font-size: 1.6rem;
-  margin: 0;
+  margin: 0 0 0.25rem;
   color: var(--mesh-accent);
 }
 
-.feature-placeholder p {
-  max-width: 32rem;
+.soh-status {
   margin: 0;
-  opacity: 0.85;
-  line-height: 1.5;
+  opacity: 0.7;
+  font-size: 0.9rem;
+  font-variant-numeric: tabular-nums;
 }
 
-.feature-status {
+.soh-name input {
+  width: 100%;
+  padding: 0.7rem 0.9rem;
+  font-size: 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--mesh-fg);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 0.5rem;
+  outline: none;
+}
+
+.soh-name input:focus {
+  border-color: var(--mesh-accent);
+}
+
+.soh-action {
+  display: flex;
+  justify-content: center;
+  margin: 0.5rem 0 0.25rem;
+}
+
+.soh-toggle {
+  padding: 1.1rem 2rem;
+  font-size: 1.15rem;
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--mesh-fg);
+  border: 2px solid rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.soh-toggle:hover:not(:disabled) {
+  opacity: 0.85;
+}
+
+.soh-toggle:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.soh-toggle.is-raised {
+  background: var(--mesh-accent);
+  color: #1a1a1a;
+  border-color: var(--mesh-accent);
+}
+
+.soh-list-wrap {
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding-top: 1rem;
+}
+
+.soh-list-title {
   font-size: 0.85rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
   opacity: 0.6;
+  margin: 0 0 0.5rem;
+}
+
+.soh-empty {
+  opacity: 0.5;
+  font-style: italic;
+  margin: 0.5rem 0;
+}
+
+.soh-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.soh-entry {
+  display: grid;
+  grid-template-columns: 1.5rem 1fr auto;
+  align-items: baseline;
+  gap: 0.6rem;
+  padding: 0.6rem 0.8rem;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 0.4rem;
+  animation: soh-fade 0.25s ease-out;
+}
+
+.soh-entry.is-me {
+  background: rgba(245, 165, 36, 0.16);
+  border: 1px solid rgba(245, 165, 36, 0.4);
+}
+
+.soh-pos {
+  opacity: 0.5;
   font-variant-numeric: tabular-nums;
+}
+
+.soh-name-label {
+  font-weight: 500;
+}
+
+.soh-time {
+  opacity: 0.55;
+  font-size: 0.82rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.soh-clear {
+  margin-top: 1rem;
+  padding: 0.65rem 1rem;
+  font-size: 0.95rem;
+  background: transparent;
+  color: var(--mesh-fg);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 0.4rem;
+  cursor: pointer;
+  align-self: center;
+}
+
+.soh-clear:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.soh-clear:hover:not(:disabled) {
+  border-color: var(--mesh-accent);
+  color: var(--mesh-accent);
+}
+
+@keyframes soh-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
