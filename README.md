@@ -1,7 +1,7 @@
 # mesh-show-of-hands
 
 [![pages](https://img.shields.io/badge/live-baditaflorin.github.io%2Fmesh-show-of-hands-f5a524)](https://baditaflorin.github.io/mesh-show-of-hands/)
-[![version](https://img.shields.io/badge/version-0.1.0-blue)](https://github.com/baditaflorin/mesh-show-of-hands/blob/main/package.json)
+[![version](https://img.shields.io/badge/version-0.1.1-blue)](https://github.com/baditaflorin/mesh-show-of-hands/blob/main/package.json)
 [![license](https://img.shields.io/badge/license-MIT-green)](./LICENSE)
 
 > Live raised-hands board for classrooms and meetings, no account, mesh-synced

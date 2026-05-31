@@ -30,6 +30,44 @@ test("raise on peer A appears on peer B; all clear from B lowers it on A", async
   }
 });
 
+test("raised count syncs on BOTH peers; self-lower on A clears on B", async ({
+  browser,
+  baseURL,
+}) => {
+  const { a, b, cleanup } = await openTwoPeers(browser, baseURL ?? "", { storagePrefix });
+  try {
+    await a.getByPlaceholder("your name").fill("alice");
+    await b.getByPlaceholder("your name").fill("bob");
+
+    // Both start at zero hands.
+    await expect(a.locator(".soh-status")).toContainText("0 hands up");
+    await expect(b.locator(".soh-status")).toContainText("0 hands up");
+
+    // A raises -> B's board shows alice, and the count reads "1 hand up" on BOTH.
+    await a.getByRole("button", { name: "✋ raise hand", exact: true }).click();
+    await expect(b.locator(".soh-entry")).toContainText(["alice"]);
+    await expect(a.locator(".soh-status")).toContainText("1 hand up");
+    await expect(b.locator(".soh-status")).toContainText("1 hand up");
+
+    // B raises too -> both peers read "2 hands up".
+    await b.getByRole("button", { name: "✋ raise hand", exact: true }).click();
+    await expect(a.locator(".soh-status")).toContainText("2 hands up");
+    await expect(b.locator(".soh-status")).toContainText("2 hands up");
+    await expect(a.locator(".soh-entry")).toHaveCount(2);
+    await expect(b.locator(".soh-entry")).toHaveCount(2);
+
+    // A lowers their OWN hand (self-toggle, not "all clear"). This must sync:
+    // B no longer sees alice, and both counts drop back to "1 hand up".
+    await a.getByRole("button", { name: "✋ lower hand", exact: true }).click();
+    await expect(b.locator(".soh-entry")).toHaveCount(1);
+    await expect(b.locator(".soh-entry")).not.toContainText(["alice"]);
+    await expect(a.locator(".soh-status")).toContainText("1 hand up");
+    await expect(b.locator(".soh-status")).toContainText("1 hand up");
+  } finally {
+    await cleanup();
+  }
+});
+
 test("name persists to localStorage across reload", async ({ page, baseURL }) => {
   await page.goto(baseURL ?? "");
   await page.getByPlaceholder("your name").fill("charlie");
